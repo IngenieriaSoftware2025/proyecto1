@@ -24,7 +24,10 @@
                 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0;">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/ejemplo/"><i class="bi bi-house-fill me-2"></i>Inicio</a>
+                        <a class="nav-link" aria-current="page" href="/proyecto1/"><i class="bi bi-house-fill me-2"></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/proyecto1/login"><i class="bi bi-universal-access-circle"></i>Login</a>
                     </li>
   
                     <div class="nav-item dropdown " >
@@ -34,9 +37,9 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/proyecto1/login"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
                             </li>
-                        
+                      
                     
                         
                         </ul>
