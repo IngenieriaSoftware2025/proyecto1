@@ -1,6 +1,6 @@
 {
-    "name": "mindef/demo",
-    "description": "Proyecto MVC demo",
+    "name": "mpj/login",
+    "description": "Proyecto MVC demo de un login",
     "type": "project",
     "config": {
         "platform-check": false

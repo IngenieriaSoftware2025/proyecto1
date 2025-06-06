@@ -1,7 +1,7 @@
 {
-  "name": "demo-app",
+  "name": "app_login",
   "version": "1.0.0",
-  "description": "Aplicacion MVC demo",
+  "description": "Aplicacion MVC con login",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
