@@ -30,7 +30,7 @@
                         <a class="nav-link" aria-current="page" href="/proyecto1/login"><i class="bi bi-universal-access-circle"></i>Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/usuarios/index"><i class="bi bi-ui-checks"></i>Usuarios</a>
+                        <a class="nav-link" aria-current="page" href="/proyecto1/usuarios"><i class="bi bi-ui-checks"></i>Usuarios</a>
                     </li>
   
                     <div class="nav-item dropdown " >

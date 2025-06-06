@@ -4,6 +4,7 @@ namespace Controllers;
 
 use MVC\Router;
 use Model\ActiveRecord;
+use Model\Usuarios;
 use Exception;
 
 
@@ -15,3 +16,4 @@ class RegistroController extends ActiveRecord
         $router->render('usuarios/index', []);
     }
 }
+
