@@ -78,6 +78,11 @@
                                 <label class="form-label" for="usuario_contra">Contraseña</label>
                             </div>
 
+                            <div class="form-outline mb-4">
+                                <input type="password" id="confirmar_contra" name="confirmar_contra" class="form-control" required />
+                                <label class="form-label" for="confirmar_contra">Confirmar Contraseña</label>
+                            </div>
+
                             <div class="mb-4">
                                 <label for="usuario_fotografia" class="form-label">Fotografía</label>
                                 <input type="file" id="usuario_fotografia" name="usuario_fotografia" class="form-control" accept="image/*" />
