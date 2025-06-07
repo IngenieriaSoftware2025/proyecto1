@@ -4,7 +4,7 @@ namespace Model;
 // Importa la clase ActiveRecord del nombre de espacio Model
 use Model\ActiveRecord;
 // Crea la clase de instancia Permiso y hereda las funciones de ActiveRecord
-class Permiso extends ActiveRecord {
+class Permisos extends ActiveRecord {
     
     // Crea las propiedades de la clase
     public static $tabla = 'permiso';

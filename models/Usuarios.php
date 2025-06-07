@@ -57,8 +57,8 @@ class Usuarios extends ActiveRecord {
         $this->usuario_correo = $usuario['usuario_correo'] ?? '';
         $this->usuario_contra = $usuario['usuario_contra'] ?? '';
         $this->usuario_token = $usuario['usuario_token'] ?? '';
-        $this->usuario_fecha_creacion = $usuario['usuario_fecha_creacion'] ?? null;
-        $this->usuario_fecha_contra = $usuario['usuario_fecha_contra'] ?? null;
+        $this->usuario_fecha_creacion = $usuario['usuario_fecha_creacion'] ?? '';
+        $this->usuario_fecha_contra = $usuario['usuario_fecha_contra'] ?? '';
         $this->usuario_fotografia = $usuario['usuario_fotografia'] ?? null;
         $this->usuario_situacion = $usuario['usuario_situacion'] ?? 1;
     }

@@ -16,7 +16,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/ejemplo/">
+            <a class="navbar-brand" href="/proyecto1/">
                 <img src="<?= asset('./images/cit.png') ?>" width="35px'" alt="cit" >
                 Aplicaciones
             </a>
@@ -26,11 +26,13 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/proyecto1/"><i class="bi bi-house-fill me-2"></i>Inicio</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/proyecto1/login"><i class="bi bi-universal-access-circle"></i>Login</a>
+                        <a class="nav-link" aria-current="page" href="/proyecto1/login"><i class="bi bi-door-open me-2"></i>Login</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/proyecto1/usuarios"><i class="bi bi-ui-checks"></i>Usuarios</a>
+                        <a class="nav-link" aria-current="page" href="/proyecto1/usuarios"><i class="bi bi-person-add me-2"></i>Usuarios</a>
                     </li>
   
                     <div class="nav-item dropdown " >
@@ -40,9 +42,9 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/proyecto1/login"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
                             </li>
-                      
+                        
                     
                         
                         </ul>

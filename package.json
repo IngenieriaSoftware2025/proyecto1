@@ -1,5 +1,5 @@
 {
-  "name": "app_login",
+  "name": "app_de_usuarios",
   "version": "1.0.0",
   "description": "Aplicacion MVC con login",
   "main": "index.js",
