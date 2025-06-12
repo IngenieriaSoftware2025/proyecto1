@@ -1,12 +1,11 @@
 <?php
-// crea nombre de espacio Model
+
 namespace Model;
-// Importa la clase ActiveRecord del nombre de espacio Model
+
 use Model\ActiveRecord;
-// Crea la clase de instancia Permiso y hereda las funciones de ActiveRecord
+
 class Permisos extends ActiveRecord {
     
-    // Crea las propiedades de la clase
     public static $tabla = 'permiso';
     public static $idTabla = 'permiso_id';
     public static $columnasDB = 
@@ -19,7 +18,6 @@ class Permisos extends ActiveRecord {
         'permiso_situacion'
     ];
     
-    // Crea las variables para almacenar los datos
     public $permiso_id;
     public $permiso_app_id;
     public $permiso_nombre;
@@ -35,8 +33,13 @@ class Permisos extends ActiveRecord {
         $this->permiso_nombre = $permiso['permiso_nombre'] ?? '';
         $this->permiso_clave = $permiso['permiso_clave'] ?? '';
         $this->permiso_desc = $permiso['permiso_desc'] ?? '';
-        $this->permiso_fecha = $permiso['permiso_fecha'] ?? null;
+        $this->permiso_fecha = $permiso['permiso_fecha'] ?? '';
         $this->permiso_situacion = $permiso['permiso_situacion'] ?? 1;
+    }
+
+    public static function EliminarPermiso($id){
+        $sql = "DELETE FROM permiso WHERE permiso_id = $id";
+        return self::SQL($sql);
     }
 
 }

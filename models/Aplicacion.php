@@ -1,12 +1,11 @@
 <?php
-// crea nombre de espacio Model
+
 namespace Model;
-// Importa la clase ActiveRecord del nombre de espacio Model
+
 use Model\ActiveRecord;
-// Crea la clase de instancia Aplicacion y hereda las funciones de ActiveRecord
-class Aplicaciones extends ActiveRecord {
+
+class Aplicacion extends ActiveRecord {
     
-    // Crea las propiedades de la clase
     public static $tabla = 'aplicacion';
     public static $idTabla = 'app_id';
     public static $columnasDB = 
@@ -18,7 +17,6 @@ class Aplicaciones extends ActiveRecord {
         'app_situacion'
     ];
     
-    // Crea las variables para almacenar los datos
     public $app_id;
     public $app_nombre_largo;
     public $app_nombre_medium;
@@ -32,8 +30,13 @@ class Aplicaciones extends ActiveRecord {
         $this->app_nombre_largo = $aplicacion['app_nombre_largo'] ?? '';
         $this->app_nombre_medium = $aplicacion['app_nombre_medium'] ?? '';
         $this->app_nombre_corto = $aplicacion['app_nombre_corto'] ?? '';
-        $this->app_fecha_creacion = $aplicacion['app_fecha_creacion'] ?? null;
+        $this->app_fecha_creacion = $aplicacion['app_fecha_creacion'] ?? '';
         $this->app_situacion = $aplicacion['app_situacion'] ?? 1;
+    }
+
+    public static function EliminarAplicaciones($id){
+        $sql = "UPDATE aplicacion SET app_situacion = 0 WHERE app_id = $id";
+        return self::SQL($sql);
     }
 
 }

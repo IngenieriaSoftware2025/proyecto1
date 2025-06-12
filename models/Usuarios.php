@@ -1,12 +1,11 @@
 <?php
-// crea nombre de espacio Model
+
 namespace Model;
-// Importa la clase ActiveRecord del nombre de espacio Model
+
 use Model\ActiveRecord;
-// Crea la clase de instancia Usuario y hereda las funciones de ActiveRecord
+
 class Usuarios extends ActiveRecord {
     
-    // Crea las propiedades de la clase
     public static $tabla = 'usuario';
     public static $idTabla = 'usuario_id';
     public static $columnasDB = 
@@ -27,7 +26,6 @@ class Usuarios extends ActiveRecord {
         'usuario_situacion'
     ];
     
-    // Crea las variables para almacenar los datos
     public $usuario_id;
     public $usuario_nom1;
     public $usuario_nom2;
@@ -61,6 +59,11 @@ class Usuarios extends ActiveRecord {
         $this->usuario_fecha_contra = $usuario['usuario_fecha_contra'] ?? '';
         $this->usuario_fotografia = $usuario['usuario_fotografia'] ?? null;
         $this->usuario_situacion = $usuario['usuario_situacion'] ?? 1;
+    }
+
+    public static function EliminarUsuarios($id){
+        $sql = "DELETE FROM usuario WHERE usuario_id = $id";
+        return self::SQL($sql);
     }
 
 }

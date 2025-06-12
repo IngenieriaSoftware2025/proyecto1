@@ -5,68 +5,18 @@ import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import { data } from "jquery";
 
-const formUsuario = document.getElementById('formUsuario');
+const formAplicacion = document.getElementById('formAplicacion');
 const BtnGuardar = document.getElementById('BtnGuardar');
 const BtnModificar = document.getElementById('BtnModificar');
 const BtnLimpiar = document.getElementById('BtnLimpiar');
-const BtnBuscarUsuarios = document.getElementById('BtnBuscarUsuarios');
-const InputUsuarioTel = document.getElementById('usuario_tel');
-const InputUsuarioDpi = document.getElementById('usuario_dpi');
+const BtnBuscarAplicaciones = document.getElementById('BtnBuscarAplicaciones');
 const seccionTabla = document.getElementById('seccionTabla');
 
-const ValidarTelefono = () => {
-    const CantidadDigitos = InputUsuarioTel.value;
-
-    if (CantidadDigitos.length < 1) {
-        InputUsuarioTel.classList.remove('is-valid', 'is-invalid');
-    } else {
-        if (CantidadDigitos.length != 8) {
-            Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "Revise el numero de telefono",
-                text: "La cantidad de digitos debe ser exactamente 8 digitos",
-                showConfirmButton: true,
-            });
-
-            InputUsuarioTel.classList.remove('is-valid');
-            InputUsuarioTel.classList.add('is-invalid');
-        } else {
-            InputUsuarioTel.classList.remove('is-invalid');
-            InputUsuarioTel.classList.add('is-valid');
-        }
-    }
-}
-
-const ValidarDpi = () => {
-    const dpi = InputUsuarioDpi.value.trim();
-
-    if (dpi.length < 1) {
-        InputUsuarioDpi.classList.remove('is-valid', 'is-invalid');
-    } else {
-        if (dpi.length < 13) {
-            Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "DPI INVALIDO",
-                text: "El DPI debe tener al menos 13 caracteres",
-                showConfirmButton: true,
-            });
-
-            InputUsuarioDpi.classList.remove('is-valid');
-            InputUsuarioDpi.classList.add('is-invalid');
-        } else {
-            InputUsuarioDpi.classList.remove('is-invalid');
-            InputUsuarioDpi.classList.add('is-valid');
-        }
-    }
-}
-
-const guardarUsuario = async e => {
+const guardarAplicacion = async e => {
     e.preventDefault();
     BtnGuardar.disabled = true;
 
-    if (!validarFormulario(formUsuario, ['usuario_id', 'usuario_token', 'usuario_fecha_creacion', 'usuario_fecha_contra', 'usuario_situacion', 'usuario_fotografia'])) {
+    if (!validarFormulario(formAplicacion, ['app_id', 'app_fecha_creacion', 'app_situacion'])) {
         Swal.fire({
             position: "center",
             icon: "info",
@@ -78,8 +28,8 @@ const guardarUsuario = async e => {
         return;
     }
 
-    const body = new FormData(formUsuario);
-    const url = "/proyecto1/usuarios/guardarAPI";
+    const body = new FormData(formAplicacion);
+    const url = "/proyecto1/aplicacion/guardarAPI";
     const config = {
         method: 'POST',
         body
@@ -101,7 +51,7 @@ const guardarUsuario = async e => {
             });
 
             limpiarTodo();
-            BuscarUsuarios();
+            BuscarAplicaciones();
         } else {
             await Swal.fire({
                 position: "center",
@@ -118,8 +68,8 @@ const guardarUsuario = async e => {
     BtnGuardar.disabled = false;
 }
 
-const BuscarUsuarios = async () => {
-    const url = `/proyecto1/usuarios/buscarAPI`;
+const BuscarAplicaciones = async () => {
+    const url = `/proyecto1/aplicacion/buscarAPI`;
     const config = {
         method: 'GET'
     }
@@ -130,7 +80,7 @@ const BuscarUsuarios = async () => {
         const { codigo, mensaje, data } = datos;
 
         if (codigo == 1) {
-            console.log('Usuarios encontrados:', data);
+            console.log('Aplicaciones encontradas:', data);
 
             if (datatable) {
                 datatable.clear().draw();
@@ -154,13 +104,13 @@ const BuscarUsuarios = async () => {
 const MostrarTabla = () => {
     if (seccionTabla.style.display === 'none') {
         seccionTabla.style.display = 'block';
-        BuscarUsuarios();
+        BuscarAplicaciones();
     } else {
         seccionTabla.style.display = 'none';
     }
 }
 
-const datatable = new DataTable('#TableUsuarios', {
+const datatable = new DataTable('#TableAplicaciones', {
     dom: `
         <"row mt-3 justify-content-between" 
             <"col" l> 
@@ -178,75 +128,36 @@ const datatable = new DataTable('#TableUsuarios', {
     columns: [
         {
             title: 'No.',
-            data: 'usuario_id',
-            width: '5%',
+            data: 'app_id',
+            width: '10%',
             render: (data, type, row, meta) => meta.row + 1
         },
         { 
-            title: 'Primer Nombre', 
-            data: 'usuario_nom1',
-            width: '10%'
+            title: 'Nombre Largo', 
+            data: 'app_nombre_largo',
+            width: '35%'
         },
         { 
-            title: 'Segundo Nombre', 
-            data: 'usuario_nom2',
-            width: '10%'
+            title: 'Nombre Mediano', 
+            data: 'app_nombre_medium',
+            width: '25%'
         },
         { 
-            title: 'Primer Apellido', 
-            data: 'usuario_ape1',
-            width: '10%'
-        },
-        { 
-            title: 'Segundo Apellido', 
-            data: 'usuario_ape2',
-            width: '10%'
-        },
-        { 
-            title: 'Correo', 
-            data: 'usuario_correo',
+            title: 'Nombre Corto', 
+            data: 'app_nombre_corto',
             width: '15%'
-        },
-        { 
-            title: 'Telefono', 
-            data: 'usuario_tel',
-            width: '8%'
-        },
-        { 
-            title: 'DPI', 
-            data: 'usuario_dpi',
-            width: '10%'
-        },
-        { 
-            title: 'Dirección', 
-            data: 'usuario_direc',
-            width: '12%'
-        },
-        {
-            title: 'Fotografía',
-            data: 'usuario_fotografia',
-            width: '8%',
-            searchable: false,
-            orderable: false,
-            render: (data, type, row) => {
-                if (data && data.trim() !== '') {
-                    return `<img src="${data}" alt="Foto" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">`;
-                } else {
-                    return '<span class="text-muted">Sin foto</span>';
-                }
-            }
         },
         {
             title: 'Situación',
-            data: 'usuario_situacion',
-            width: '7%',
+            data: 'app_situacion',
+            width: '10%',
             render: (data, type, row) => {
                 return data == 1 ? "ACTIVO" : "INACTIVO";
             }
         },
         {
             title: 'Acciones',
-            data: 'usuario_id',
+            data: 'app_id',
             width: '5%',
             searchable: false,
             orderable: false,
@@ -255,14 +166,9 @@ const datatable = new DataTable('#TableUsuarios', {
                  <div class='d-flex justify-content-center'>
                      <button class='btn btn-warning modificar mx-1' 
                          data-id="${data}" 
-                         data-nom1="${row.usuario_nom1 || ''}"  
-                         data-nom2="${row.usuario_nom2 || ''}"  
-                         data-ape1="${row.usuario_ape1 || ''}"  
-                         data-ape2="${row.usuario_ape2 || ''}"  
-                         data-tel="${row.usuario_tel || ''}"  
-                         data-dpi="${row.usuario_dpi || ''}"  
-                         data-direc="${row.usuario_direc || ''}"  
-                         data-correo="${row.usuario_correo || ''}"
+                         data-largo="${row.app_nombre_largo || ''}"  
+                         data-medium="${row.app_nombre_medium || ''}"  
+                         data-corto="${row.app_nombre_corto || ''}"
                          title="Modificar">
                          <i class='bi bi-pencil-square me-1'></i> Modificar
                      </button>
@@ -280,15 +186,10 @@ const datatable = new DataTable('#TableUsuarios', {
 const llenarFormulario = (event) => {
     const datos = event.currentTarget.dataset;
 
-    document.getElementById('usuario_id').value = datos.id;
-    document.getElementById('usuario_nom1').value = datos.nom1;
-    document.getElementById('usuario_nom2').value = datos.nom2;
-    document.getElementById('usuario_ape1').value = datos.ape1;
-    document.getElementById('usuario_ape2').value = datos.ape2;
-    document.getElementById('usuario_tel').value = datos.tel;
-    document.getElementById('usuario_dpi').value = datos.dpi;
-    document.getElementById('usuario_direc').value = datos.direc;
-    document.getElementById('usuario_correo').value = datos.correo;
+    document.getElementById('app_id').value = datos.id;
+    document.getElementById('app_nombre_largo').value = datos.largo;
+    document.getElementById('app_nombre_medium').value = datos.medium;
+    document.getElementById('app_nombre_corto').value = datos.corto;
 
     BtnGuardar.classList.add('d-none');
     BtnModificar.classList.remove('d-none');
@@ -299,16 +200,16 @@ const llenarFormulario = (event) => {
 }
 
 const limpiarTodo = () => {
-    formUsuario.reset();
+    formAplicacion.reset();
     BtnGuardar.classList.remove('d-none');
     BtnModificar.classList.add('d-none');
 }
 
-const ModificarUsuario = async (event) => {
+const ModificarAplicacion = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
 
-    if (!validarFormulario(formUsuario, ['usuario_id', 'usuario_token', 'usuario_fecha_creacion', 'usuario_fecha_contra', 'usuario_situacion', 'usuario_fotografia', 'confirmar_contra'])) {
+    if (!validarFormulario(formAplicacion, ['app_id', 'app_fecha_creacion', 'app_situacion'])) {
         Swal.fire({
             position: "center",
             icon: "info",
@@ -320,8 +221,8 @@ const ModificarUsuario = async (event) => {
         return;
     }
 
-    const body = new FormData(formUsuario);
-    const url = '/proyecto1/usuarios/modificarAPI';
+    const body = new FormData(formAplicacion);
+    const url = '/proyecto1/aplicacion/modificarAPI';
     const config = {
         method: 'POST',
         body
@@ -342,7 +243,7 @@ const ModificarUsuario = async (event) => {
             });
 
             limpiarTodo();
-            BuscarUsuarios();
+            BuscarAplicaciones();
         } else {
             await Swal.fire({
                 position: "center",
@@ -359,8 +260,8 @@ const ModificarUsuario = async (event) => {
     BtnModificar.disabled = false;
 }
 
-const EliminarUsuarios = async (e) => {
-    const idUsuario = e.currentTarget.dataset.id;
+const EliminarAplicaciones = async (e) => {
+    const idAplicacion = e.currentTarget.dataset.id;
 
     const AlertaConfirmarEliminar = await Swal.fire({
         position: "center",
@@ -375,7 +276,7 @@ const EliminarUsuarios = async (e) => {
     });
 
     if (AlertaConfirmarEliminar.isConfirmed) {
-        const url = `/proyecto1/usuarios/eliminar?id=${idUsuario}`;
+        const url = `/proyecto1/aplicacion/eliminar?id=${idAplicacion}`;
         const config = {
             method: 'GET'
         }
@@ -394,7 +295,7 @@ const EliminarUsuarios = async (e) => {
                     showConfirmButton: true,
                 });
                 
-                BuscarUsuarios();
+                BuscarAplicaciones();
             } else {
                 await Swal.fire({
                     position: "center",
@@ -411,13 +312,10 @@ const EliminarUsuarios = async (e) => {
     }
 }
 
-datatable.on('click', '.eliminar', EliminarUsuarios);
+datatable.on('click', '.eliminar', EliminarAplicaciones);
 datatable.on('click', '.modificar', llenarFormulario);
-formUsuario.addEventListener('submit', guardarUsuario);
-
-InputUsuarioTel.addEventListener('change', ValidarTelefono);
-InputUsuarioDpi.addEventListener('change', ValidarDpi);
+formAplicacion.addEventListener('submit', guardarAplicacion);
 
 BtnLimpiar.addEventListener('click', limpiarTodo);
-BtnModificar.addEventListener('click', ModificarUsuario);
-BtnBuscarUsuarios.addEventListener('click', MostrarTabla);
+BtnModificar.addEventListener('click', ModificarAplicacion);
+BtnBuscarAplicaciones.addEventListener('click', MostrarTabla);

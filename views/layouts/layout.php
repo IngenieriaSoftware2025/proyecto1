@@ -16,7 +16,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/proyecto1/">
+            <a class="navbar-brand" href="/proyecto1/inicio">
                 <img src="<?= asset('./images/cit.png') ?>" width="35px'" alt="cit" >
                 Aplicaciones
             </a>
@@ -24,15 +24,30 @@
                 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0;">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/proyecto1/"><i class="bi bi-house-fill me-2"></i>Inicio</a>
+                        <a class="nav-link" aria-current="page" href="/proyecto1/inicio"><i class="bi bi-house-fill me-2"></i>Inicio</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/proyecto1/login"><i class="bi bi-door-open me-2"></i>Login</a>
+                        <a class="nav-link px-3" style="border: none; background: none;" href="/proyecto1/usuarios">
+                            <i class="bi bi-people-fill me-2"></i>Usuarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" style="background: none;" href="/proyecto1/aplicacion">
+                            <i class="bi bi-grid-fill me-2"></i>Aplicaciones
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/proyecto1/usuarios"><i class="bi bi-person-add me-2"></i>Usuarios</a>
+                        <a class="nav-link px-3" style="background: none; border: none;" href="/proyecto1/permisos">
+                            <i class="bi bi-shield-lock-fill me-2"></i>Permisos
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link px-3" style="border: none; background: none;" href="/proyecto1/login">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                        </a>
                     </li>
   
                     <div class="nav-item dropdown " >
@@ -40,7 +55,6 @@
                             <i class="bi bi-gear me-2"></i>Dropdown
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
-                            <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
                             </li>
@@ -52,8 +66,7 @@
 
                 </ul> 
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
-                    <!-- Ruta relativa desde el archivo donde se incluye menu.php -->
-                    <a href="/menu/" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i>MENÚ</a>
+                    <a href="/proyecto1/inicio" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i>MENÚ</a>
                 </div>
 
             
