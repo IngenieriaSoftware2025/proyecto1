@@ -1,6 +1,6 @@
 CREATE TABLE morataya_proyecto1
 
-CCREATE TABLE usuario(
+CREATE TABLE usuario(
 usuario_id SERIAL PRIMARY KEY,
 usuario_nom1 VARCHAR (50) NOT NULL,
 usuario_nom2 VARCHAR (50) NOT NULL,

@@ -20,7 +20,7 @@ const login = async (e) => {
 
     try {
         const body = new FormData(FormLogin);
-        const url = '/proyecto1/login';
+        const url = '/proyecto1/API/login';  // ← URL CORREGIDA
         const config = {
             method: 'POST',
             body
@@ -28,38 +28,26 @@ const login = async (e) => {
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        const { codigo, mensaje, detalle } = data;
+        const { codigo, mensaje } = data;
 
         if (codigo == 1) {
             await Swal.fire({
-                title: 'Exito',
+                title: 'Éxito',
                 text: mensaje,
                 icon: 'success',
                 showConfirmButton: true,
-                timer: 1500,
-                timerProgressBar: false,
-                background: '#e0f7fa',
-                customClass: {
-                    title: 'custom-title-class',
-                    text: 'custom-text-class'
-                }
+                timer: 1500
             });
 
             FormLogin.reset();
             location.href = '/proyecto1/inicio';
         } else {
             Swal.fire({
-                title: '¡Error!',
+                title: 'Error',
                 text: mensaje,
                 icon: 'warning',
                 showConfirmButton: true,
-                timer: 1500,
-                timerProgressBar: false,
-                background: '#e0f7fa',
-                customClass: {
-                    title: 'custom-title-class',
-                    text: 'custom-text-class'
-                }
+                timer: 1500
             });
         }
 

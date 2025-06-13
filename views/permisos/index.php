@@ -9,8 +9,6 @@
                     </div>
                     <form id="formPermiso" class="p-4 bg-white rounded-3 shadow-sm border">
                         <input type="hidden" id="permiso_id" name="permiso_id">
-                        <input type="hidden" id="permiso_fecha" name="permiso_fecha" value="">
-                        <input type="hidden" id="permiso_situacion" name="permiso_situacion" value="1">
                         
                         <div class="row g-4 mb-3">
                             <div class="col-md-6">
@@ -29,23 +27,12 @@
                         
                         <div class="row g-4 mb-3">
                             <div class="col-md-6">
-                                <label for="permiso_nombre" class="form-label">Nombre del Permiso</label>
-                                <input type="text" class="form-control form-control-lg" id="permiso_nombre" name="permiso_nombre" placeholder="Ingrese nombre del permiso" required>
-                            </div>
-                            <div class="col-md-6">
                                 <label for="permiso_clave" class="form-label">Clave del Permiso</label>
-                                <input type="text" class="form-control form-control-lg" id="permiso_clave" name="permiso_clave" placeholder="Ingrese clave del permiso" required>
-                            </div>
-                        </div>
-                        
-                        <div class="row g-4 mb-3">
-                            <div class="col-md-6">
-                                <label for="permiso_desc" class="form-label">Descripción</label>
-                                <input type="text" class="form-control form-control-lg" id="permiso_desc" name="permiso_desc" placeholder="Ingrese descripción del permiso" required>
+                                <input type="text" class="form-control form-control-lg" id="permiso_clave" name="permiso_clave" placeholder="Ej: USUARIO_CREAR" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="permiso_tipo" class="form-label">Tipo de Permiso</label>
-                                <select class="form-control form-control-lg" id="permiso_tipo" name="permiso_tipo" required>
+                                <label for="tipo_permiso" class="form-label">Tipo de Permiso</label>
+                                <select class="form-control form-control-lg" id="tipo_permiso" name="tipo_permiso" required>
                                     <option value="FUNCIONAL">FUNCIONAL</option>
                                     <option value="ADMIN">ADMIN</option>
                                     <option value="LECTURA">LECTURA</option>
@@ -56,14 +43,12 @@
                         
                         <div class="row g-4 mb-3">
                             <div class="col-md-6">
-                                <label for="permiso_usuario_asigno" class="form-label">Usuario que Asigna</label>
-                                <select class="form-control form-control-lg" id="permiso_usuario_asigno" name="permiso_usuario_asigno" required>
-                                    <option value="">Seleccione quién asigna</option>
-                                </select>
+                                <label for="permiso_desc" class="form-label">Descripción</label>
+                                <input type="text" class="form-control form-control-lg" id="permiso_desc" name="permiso_desc" placeholder="Descripción del permiso" required>
                             </div>
                             <div class="col-md-6">
-                                <label for="permiso_motivo" class="form-label">Motivo</label>
-                                <input type="text" class="form-control form-control-lg" id="permiso_motivo" name="permiso_motivo" placeholder="Ingrese motivo de la asignación">
+                                <label for="motivo" class="form-label">Motivo</label>
+                                <input type="text" class="form-control form-control-lg" id="motivo" name="motivo" placeholder="Motivo de la asignación" required>
                             </div>
                         </div>
                         
@@ -98,13 +83,10 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Usuario</th>
+                                    <th>DPI</th>
                                     <th>Aplicación</th>
-                                    <th>Nombre del Permiso</th>
-                                    <th>Clave del Permiso</th>
-                                    <th>Tipo</th>
+                                    <th>Permiso</th>
                                     <th>Descripción</th>
-                                    <th>Asignado por</th>
-                                    <th>Situación</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

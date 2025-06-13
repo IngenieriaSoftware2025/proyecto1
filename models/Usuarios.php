@@ -8,8 +8,7 @@ class Usuarios extends ActiveRecord {
     
     public static $tabla = 'usuario';
     public static $idTabla = 'usuario_id';
-    public static $columnasDB = 
-    [
+    public static $columnasDB = [
         'usuario_nom1',
         'usuario_nom2',
         'usuario_ape1',
@@ -60,10 +59,4 @@ class Usuarios extends ActiveRecord {
         $this->usuario_fotografia = $usuario['usuario_fotografia'] ?? null;
         $this->usuario_situacion = $usuario['usuario_situacion'] ?? 1;
     }
-
-    public static function EliminarUsuarios($id){
-        $sql = "DELETE FROM usuario WHERE usuario_id = $id";
-        return self::SQL($sql);
-    }
-
 }

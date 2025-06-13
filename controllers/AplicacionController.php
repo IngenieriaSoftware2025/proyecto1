@@ -9,9 +9,11 @@ use Model\Aplicacion;
 
 class AplicacionController extends ActiveRecord
 {
-
     public static function renderizarPagina(Router $router)
     {
+        // Verificar que esté logueado
+        isAuth();
+        
         $router->render('aplicacion/index', []);
     }
 
@@ -20,68 +22,27 @@ class AplicacionController extends ActiveRecord
         getHeadersApi();
     
         try {
+            // Limpiar datos
             $_POST['app_nombre_largo'] = ucwords(strtolower(trim(htmlspecialchars($_POST['app_nombre_largo']))));
-            
-            $cantidad_largo = strlen($_POST['app_nombre_largo']);
-            
-            if ($cantidad_largo < 2) {
-                http_response_code(400);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Nombre largo debe de tener mas de 1 caracteres'
-                ]);
-                exit;
-            }
-            
-            if ($cantidad_largo > 250) {
-                http_response_code(400);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Nombre largo no puede exceder los 250 caracteres'
-                ]);
-                exit;
-            }
-            
             $_POST['app_nombre_medium'] = ucwords(strtolower(trim(htmlspecialchars($_POST['app_nombre_medium']))));
-            
-            $cantidad_medium = strlen($_POST['app_nombre_medium']);
-            
-            if ($cantidad_medium < 2) {
-                http_response_code(400);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Nombre mediano debe de tener mas de 1 caracteres'
-                ]);
-                exit;
-            }
-            
-            if ($cantidad_medium > 150) {
-                http_response_code(400);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Nombre mediano no puede exceder los 150 caracteres'
-                ]);
-                exit;
-            }
-            
             $_POST['app_nombre_corto'] = strtoupper(trim(htmlspecialchars($_POST['app_nombre_corto'])));
-            $cantidad_corto = strlen($_POST['app_nombre_corto']);
             
-            if ($cantidad_corto < 2) {
+            // Validaciones simples
+            if (strlen($_POST['app_nombre_largo']) < 2) {
                 http_response_code(400);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Nombre corto debe de tener mas de 1 caracteres'
-                ]);
+                echo json_encode(['codigo' => 0, 'mensaje' => 'Nombre largo muy corto']);
                 exit;
             }
             
-            if ($cantidad_corto > 50) {
+            if (strlen($_POST['app_nombre_medium']) < 2) {
                 http_response_code(400);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Nombre corto no puede exceder los 50 caracteres'
-                ]);
+                echo json_encode(['codigo' => 0, 'mensaje' => 'Nombre mediano muy corto']);
+                exit;
+            }
+            
+            if (strlen($_POST['app_nombre_corto']) < 2) {
+                http_response_code(400);
+                echo json_encode(['codigo' => 0, 'mensaje' => 'Nombre corto muy corto']);
                 exit;
             }
             
@@ -93,65 +54,28 @@ class AplicacionController extends ActiveRecord
 
             if($resultado['resultado'] == 1){
                 http_response_code(200);
-                echo json_encode([
-                    'codigo' => 1,
-                    'mensaje' => 'Aplicacion registrada correctamente',
-                ]);
-                exit;
+                echo json_encode(['codigo' => 1, 'mensaje' => 'Aplicación guardada correctamente']);
             } else {
                 http_response_code(500);
-                echo json_encode([
-                    'codigo' => 0,
-                    'mensaje' => 'Error en registrar la aplicacion',
-                ]);
-                exit;
+                echo json_encode(['codigo' => 0, 'mensaje' => 'Error al guardar']);
             }
             
         } catch (Exception $e) {
             http_response_code(500);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error interno del servidor',
-                'detalle' => $e->getMessage(),
-            ]);
-            exit;
+            echo json_encode(['codigo' => 0, 'mensaje' => 'Error interno']);
         }
     }
 
     public static function buscarAPI()
     {
         try {
-            $fecha_inicio = isset($_GET['fecha_inicio']) ? $_GET['fecha_inicio'] : null;
-            $fecha_fin = isset($_GET['fecha_fin']) ? $_GET['fecha_fin'] : null;
-
-            $condiciones = ["app_situacion = 1"];
-
-            if ($fecha_inicio) {
-                $condiciones[] = "app_fecha_creacion >= '{$fecha_inicio}'";
-            }
-
-            if ($fecha_fin) {
-                $condiciones[] = "app_fecha_creacion <= '{$fecha_fin}'";
-            }
-
-            $where = implode(" AND ", $condiciones);
-            $sql = "SELECT * FROM aplicacion WHERE $where ORDER BY app_fecha_creacion DESC";
+            $sql = "SELECT * FROM aplicacion WHERE app_situacion = 1 ORDER BY app_fecha_creacion DESC";
             $data = self::fetchArray($sql);
 
-            http_response_code(200);
-            echo json_encode([
-                'codigo' => 1,
-                'mensaje' => 'Aplicaciones obtenidas correctamente',
-                'data' => $data
-            ]);
+            echo json_encode(['codigo' => 1, 'mensaje' => 'Aplicaciones encontradas', 'data' => $data]);
 
         } catch (Exception $e) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al obtener las aplicaciones',
-                'detalle' => $e->getMessage(),
-            ]);
+            echo json_encode(['codigo' => 0, 'mensaje' => 'Error al buscar']);
         }
     }
 
@@ -159,73 +83,12 @@ class AplicacionController extends ActiveRecord
     {
         getHeadersApi();
 
-        $id = $_POST['app_id'];
-        $_POST['app_nombre_largo'] = ucwords(strtolower(trim(htmlspecialchars($_POST['app_nombre_largo']))));
-
-        $cantidad_largo = strlen($_POST['app_nombre_largo']);
-
-        if ($cantidad_largo < 2) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Nombre largo debe de tener mas de 1 caracteres'
-            ]);
-            return;
-        }
-
-        if ($cantidad_largo > 250) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Nombre largo no puede exceder los 250 caracteres'
-            ]);
-            return;
-        }
-
-        $_POST['app_nombre_medium'] = ucwords(strtolower(trim(htmlspecialchars($_POST['app_nombre_medium']))));
-
-        $cantidad_medium = strlen($_POST['app_nombre_medium']);
-
-        if ($cantidad_medium < 2) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Nombre mediano debe de tener mas de 1 caracteres'
-            ]);
-            return;
-        }
-
-        if ($cantidad_medium > 150) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Nombre mediano no puede exceder los 150 caracteres'
-            ]);
-            return;
-        }
-
-        $_POST['app_nombre_corto'] = strtoupper(trim(htmlspecialchars($_POST['app_nombre_corto'])));
-        $cantidad_corto = strlen($_POST['app_nombre_corto']);
-
-        if ($cantidad_corto < 2) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Nombre corto debe de tener mas de 1 caracteres'
-            ]);
-            return;
-        }
-
-        if ($cantidad_corto > 50) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Nombre corto no puede exceder los 50 caracteres'
-            ]);
-            return;
-        }
-
         try {
+            $id = $_POST['app_id'];
+            $_POST['app_nombre_largo'] = ucwords(strtolower(trim(htmlspecialchars($_POST['app_nombre_largo']))));
+            $_POST['app_nombre_medium'] = ucwords(strtolower(trim(htmlspecialchars($_POST['app_nombre_medium']))));
+            $_POST['app_nombre_corto'] = strtoupper(trim(htmlspecialchars($_POST['app_nombre_corto'])));
+
             $data = Aplicacion::find($id);
             $data->sincronizar([
                 'app_nombre_largo' => $_POST['app_nombre_largo'],
@@ -235,18 +98,10 @@ class AplicacionController extends ActiveRecord
             ]);
             $data->actualizar();
 
-            http_response_code(200);
-            echo json_encode([
-                'codigo' => 1,
-                'mensaje' => 'La informacion de la aplicacion ha sido modificada exitosamente'
-            ]);
+            echo json_encode(['codigo' => 1, 'mensaje' => 'Aplicación modificada correctamente']);
+            
         } catch (Exception $e) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al guardar',
-                'detalle' => $e->getMessage(),
-            ]);
+            echo json_encode(['codigo' => 0, 'mensaje' => 'Error al modificar']);
         }
     }
 
@@ -254,20 +109,13 @@ class AplicacionController extends ActiveRecord
     {
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
-            $ejecutar = Aplicacion::EliminarAplicaciones($id);
+            $sql = "UPDATE aplicacion SET app_situacion = 0 WHERE app_id = $id";
+            self::SQL($sql);
 
-            http_response_code(200);
-            echo json_encode([
-                'codigo' => 1,
-                'mensaje' => 'El registro ha sido eliminado correctamente'
-            ]);
+            echo json_encode(['codigo' => 1, 'mensaje' => 'Aplicación eliminada correctamente']);
+            
         } catch (Exception $e) {
-            http_response_code(400);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al Eliminar',
-                'detalle' => $e->getMessage(),
-            ]);
+            echo json_encode(['codigo' => 0, 'mensaje' => 'Error al eliminar']);
         }
     }
 }
