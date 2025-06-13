@@ -14,7 +14,6 @@ const SelectAplicacion = document.getElementById('app_id');
 const seccionTabla = document.getElementById('seccionTabla');
 
 const cargarUsuarios = async () => {
-    // Mostrar loading
     SelectUsuario.innerHTML = '<option value="">Cargando usuarios...</option>';
     
     const url = `/proyecto1/permisos/buscarUsuariosAPI`;
@@ -48,7 +47,6 @@ const cargarUsuarios = async () => {
 }
 
 const cargarAplicaciones = async () => {
-    // Mostrar loading
     SelectAplicacion.innerHTML = '<option value="">Cargando aplicaciones...</option>';
     
     const url = `/proyecto1/permisos/buscarAplicacionesAPI`;
@@ -107,7 +105,6 @@ const guardarPermiso = async e => {
     try {
         const respuesta = await fetch(url, config);
         
-        // Verificar si la respuesta es OK
         if (!respuesta.ok) {
             throw new Error(`HTTP error! status: ${respuesta.status}`);
         }
@@ -126,7 +123,6 @@ const guardarPermiso = async e => {
             });
 
             limpiarTodo();
-            // No buscar permisos automáticamente para evitar más errores
         } else {
             await Swal.fire({
                 position: "center",
@@ -140,7 +136,6 @@ const guardarPermiso = async e => {
     } catch (error) {
         console.log('Error completo:', error);
         
-        // Verificar si al menos se guardó (puedes hacer una consulta simple)
         await Swal.fire({
             position: "center",
             icon: "warning",
@@ -317,12 +312,10 @@ const EliminarPermisos = async (e) => {
     }
 }
 
-// Cargar datos al iniciar - USANDO ASYNC/AWAIT CORRECTAMENTE
 document.addEventListener('DOMContentLoaded', async () => {
     await cargarUsuarios();
     await cargarAplicaciones();
     
-    // Event listeners después de cargar los datos
     datatable.on('click', '.eliminar', EliminarPermisos);
     formPermiso.addEventListener('submit', guardarPermiso);
     BtnLimpiar.addEventListener('click', limpiarTodo);

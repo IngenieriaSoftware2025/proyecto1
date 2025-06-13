@@ -20,7 +20,7 @@ const login = async (e) => {
 
     try {
         const body = new FormData(FormLogin);
-        const url = '/proyecto1/API/login';  // ← URL CORREGIDA
+        const url = '/proyecto1/API/login';  
         const config = {
             method: 'POST',
             body

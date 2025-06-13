@@ -16,7 +16,6 @@ class UsuariosController
     {
         getHeadersApi();
         
-        // Usar consulta SQL directa para evitar problemas con ActiveRecord
         $sql = "SELECT * FROM usuario WHERE usuario_situacion = 1";
         $usuarios = Usuarios::fetchArray($sql);
         

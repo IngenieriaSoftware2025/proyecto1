@@ -11,14 +11,14 @@
                         <input type="hidden" id="app_id" name="app_id">
                         <input type="hidden" id="app_fecha_creacion" name="app_fecha_creacion" value="">
                         <input type="hidden" id="app_situacion" name="app_situacion" value="1">
-                        
+
                         <div class="row g-4 mb-3">
                             <div class="col-md-12">
                                 <label for="app_nombre_largo" class="form-label">Nombre Largo</label>
                                 <input type="text" class="form-control form-control-lg" id="app_nombre_largo" name="app_nombre_largo" placeholder="Ingrese nombre largo de la aplicación" required>
                             </div>
                         </div>
-                        
+
                         <div class="row g-4 mb-3">
                             <div class="col-md-6">
                                 <label for="app_nombre_medium" class="form-label">Nombre Mediano</label>
@@ -29,7 +29,7 @@
                                 <input type="text" class="form-control form-control-lg" id="app_nombre_corto" name="app_nombre_corto" placeholder="Ingrese nombre corto" required>
                             </div>
                         </div>
-                        
+
                         <div class="d-flex justify-content-center gap-3">
                             <button class="btn btn-success btn-lg px-4 shadow" type="submit" id="BtnGuardar">
                                 <i class="bi bi-save me-2"></i>Guardar

@@ -10,17 +10,14 @@ class AppController
 {
     public static function index(Router $router)
     {
-        // Cuando alguien vaya a la página principal, lo mandamos al login
         $router->render('login/index', [], 'layouts/layoutLogin');
     }
 
     public static function login()
     {
-        // Limpiar cualquier output previo
         ob_start();
         
         try {
-            // Validar datos
             if (!isset($_POST['usu_codigo']) || !isset($_POST['usu_password'])) {
                 ob_clean();
                 header("Content-type: application/json; charset=utf-8");
@@ -38,12 +35,10 @@ class AppController
                 exit;
             }
 
-            // Buscar usuario - con manejo de errores del ActiveRecord
             $sql = "SELECT usuario_id, usuario_nom1, usuario_contra 
                     FROM usuario 
                     WHERE usuario_dpi = '$usuario' AND usuario_situacion = 1";
             
-            // Capturar cualquier warning/notice del ActiveRecord
             $usuarios = @ActiveRecord::fetchArray($sql);
             
             if (empty($usuarios)) {
@@ -55,7 +50,6 @@ class AppController
 
             $usuarioData = $usuarios[0];
             
-            // Verificar contraseña
             if (!password_verify($contrasena, $usuarioData['usuario_contra'])) {
                 ob_clean();
                 header("Content-type: application/json; charset=utf-8");
@@ -63,14 +57,12 @@ class AppController
                 exit;
             }
 
-            // Login exitoso
             @session_start();
             
             $_SESSION['nombre'] = $usuarioData['usuario_nom1'];
             $_SESSION['dpi'] = $usuario;
             $_SESSION['usuario_id'] = $usuarioData['usuario_id'];
 
-            // Cargar permisos - también con manejo de errores
             $sqlPermisos = "SELECT permiso_clave as permiso 
                            FROM asig_permisos 
                            INNER JOIN permiso ON asignacion_permiso_id = permiso_id 
@@ -87,7 +79,6 @@ class AppController
                 }
             }
 
-            // Limpiar buffer y enviar respuesta JSON
             ob_clean();
             header("Content-type: application/json; charset=utf-8");
             echo json_encode(['codigo' => 1, 'mensaje' => 'Login exitoso']);
@@ -114,8 +105,7 @@ class AppController
 
     public static function renderInicio(Router $router)
     {
-        // Solo usuarios con permiso ADMIN pueden ver el inicio
-        // hasPermission(['ADMIN']); // ← Comentamos esto temporalmente
+
         
         $router->render('pages/index', [], 'layouts/layout');
     }

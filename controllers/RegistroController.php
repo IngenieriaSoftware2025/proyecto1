@@ -208,7 +208,6 @@ class RegistroController extends ActiveRecord
         try {
             $id = $_POST['usuario_id'];
             
-            // Aplicar las mismas validaciones que en guardar
             $_POST['usuario_nom1'] = ucwords(strtolower(trim(htmlspecialchars($_POST['usuario_nom1']))));
             $_POST['usuario_nom2'] = ucwords(strtolower(trim(htmlspecialchars($_POST['usuario_nom2']))));
             $_POST['usuario_ape1'] = ucwords(strtolower(trim(htmlspecialchars($_POST['usuario_ape1']))));

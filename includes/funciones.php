@@ -36,7 +36,6 @@ function isAuthApi() {
 function hasPermission(array $permisos){
     session_start();
     
-    // DEBUG: Ver qué permisos estamos buscando y qué hay en sesión
     error_log("DEBUG - Permisos requeridos: " . print_r($permisos, true));
     error_log("DEBUG - Sesión actual: " . print_r($_SESSION, true));
     

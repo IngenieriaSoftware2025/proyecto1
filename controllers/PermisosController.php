@@ -120,7 +120,6 @@ class PermisosController extends ActiveRecord
         getHeadersApi();
 
         try {
-            // DEBUG: Ver qué datos llegan
             error_log("POST recibido: " . print_r($_POST, true));
             
             $usuario_id = filter_var($_POST['usuario_id'], FILTER_SANITIZE_NUMBER_INT);
@@ -140,7 +139,6 @@ class PermisosController extends ActiveRecord
                 exit;
             }
 
-            // CREAR PERMISO DIRECTAMENTE SIN VERIFICAR SI EXISTE
             $sqlPermiso = "INSERT INTO permiso (permiso_app_id, permiso_nombre, permiso_clave, permiso_desc, permiso_situacion) 
                           VALUES ($app_id, '$permiso_clave', '$permiso_clave', '$permiso_desc', 1)";
             
